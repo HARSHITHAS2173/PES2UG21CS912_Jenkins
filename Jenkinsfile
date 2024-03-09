@@ -1,26 +1,27 @@
 pipeline {
     agent any
-    stages{
+    stages {
         stage('Build') {
             steps {
                 build 'PES2UG21CS912-1'
-              sh 'g++ main.cpp -o output'
+                sh 'g++ main.cpp -o output'
             }
         }
         stage('Test') {
             steps {
-            sh './output'
+                // Introduce a deliberate syntax error
+                sh './output && exit 1'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'deploy'
-              }
-          }
-      }
-      post {
+            }
+        }
+    }
+    post {
         failure {
             error 'Pipeline failed'
-          }
-      }
+        }
     }
+}
