@@ -9,8 +9,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Introduce a syntax error here
-                sh './output || non_existent_command'
+                // Introduce a deliberate syntax error
+                sh './output && exit 1'
             }
         }
         stage('Deploy') {
